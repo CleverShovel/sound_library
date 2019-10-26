@@ -1,6 +1,5 @@
-
-from os import environ
-
+from os import environ, path
+basedir = path.abspath(path.dirname(__file__))
 
 class Config:
     """Set Flask configuration vars from .env file."""
@@ -11,5 +10,5 @@ class Config:
     FLASK_ENV = environ.get('FLASK_ENV')
 
     # Database
-    SQLALCHEMY_DATABASE_URI = environ.get("SQLALCHEMY_DATABASE_URI")
-    SQLALCHEMY_TRACK_MODIFICATIONS = environ.get("SQLALCHEMY_TRACK_MODIFICATIONS")
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + path.join(basedir, 'app.db')
+    SQLALCHEMY_MIGRATE_REPO = path.join(basedir, 'db_repository')
