@@ -2,6 +2,7 @@
 {% import "bootstrap/wtf.html" as wtf %}
 
 {% block content %}
+{{ super() }}
 <div class="container-fluid">
   <form class="form" method="post" role="form" enctype="multipart/form-data">
     {{ form.csrf_token() }}

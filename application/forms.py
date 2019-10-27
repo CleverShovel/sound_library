@@ -9,7 +9,7 @@ class SearchForm(FlaskForm):
 
 
 class UploadSoundForm(FlaskForm):
-  name = TextField('Enter sound name:', validators=[DataRequired()])
+  name = TextField('Enter sound name:')
   sound_file = FileField('Choose file:', validators=[
       FileRequired('Empty file!'),
       #.wav, .mp3, .aac, .ogg, .oga, and .flac

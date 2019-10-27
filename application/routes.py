@@ -1,6 +1,9 @@
 from flask import current_app as app
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, flash, Markup
 from .forms import SearchForm, UploadSoundForm
+from werkzeug.utils import secure_filename
+from os import path
+from pathlib import Path
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -17,12 +20,13 @@ def sound(id):
 
 @app.route('/upload_sound', methods=['GET', 'POST'])
 def upload_sound():
-  search_form = SearchForm()
   form = UploadSoundForm()
-  if search_form.validate_on_submit():
-    return 'Submitted!'
   if form.validate_on_submit():
-    print(form.sound_file.data)
-    print(request.files)
-    return redirect(url_for('index'))
-  return render_template('upload.html', search_form=search_form, form=form)
+    file = form.sound_file.data
+    filename = secure_filename(
+        form.name.data + Path(file.filename).suffix if form.name.data else file.filename)
+    file.save(path.join(app.config['SOUND_FOLDER'], filename))
+    flash(Markup("File <strong>{}</strong> successfully uploaded!".format(filename)),
+          'success')
+    return redirect(url_for('upload_sound'))
+  return render_template('upload.html', form=form)
