@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed, FileRequired
 from wtforms import TextField
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, Regexp
 
 
 class SearchForm(FlaskForm):
@@ -9,7 +9,7 @@ class SearchForm(FlaskForm):
 
 
 class UploadSoundForm(FlaskForm):
-  name = TextField('Enter sound name:')
+  name = TextField('Enter sound name:', validators=[Regexp(r"(?:[^\\/])*")])
   sound_file = FileField('Choose file:', validators=[
       FileRequired('Empty file!'),
       #.wav, .mp3, .aac, .ogg, .oga, and .flac

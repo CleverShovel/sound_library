@@ -21,9 +21,10 @@ class User(db.Model):
                       index=False,
                       unique=False,
                       nullable=False)
-    
+
     def __repr__(self):
         return '<User {}>'.format(self.username)
+
 
 class Sound(db.Model):
     """Model for track information."""
@@ -33,7 +34,7 @@ class Sound(db.Model):
                    primary_key=True)
     name = db.Column(db.String(255),
                      index=False,
-                     unique=True,
+                     unique=False,
                      nullable=False)
     path = db.Column(db.String(1024),
                      index=False,

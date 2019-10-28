@@ -12,3 +12,10 @@
 {% endif %}
 {% endwith %}
 {% endmacro %}
+
+{% macro audio_player(path) %}
+<audio class="container" style="padding: 0px;" controls>
+  <source src="/play/{{ path }}" />
+  An html5-capable browser is required to play this audio.
+</audio>
+{% endmacro %}
