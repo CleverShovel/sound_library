@@ -1,0 +1,33 @@
+{% extends "bootstrap/base.html" %}
+{% from "macros.html" import alerts with context %}
+
+{% block title %}Sound Library{% endblock %}
+
+{% block navbar %}
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="{{url_for('index')}}">Sound Library</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a href="{{url_for('upload_sound')}}">Upload sound</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+      <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+    </ul>
+    {% block navbar_add %}{% endblock %}
+  </div>
+</nav>
+{% endblock %}
+
+{% block content %}
+<style>
+  audio {
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.4);
+    border-radius: 90px;
+    transform: scale(1.05);
+  }
+</style>
+{{ alerts() }}
+{% endblock %}

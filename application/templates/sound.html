@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+{% from "macros.html" import audio_player with context %}
+
+{% block content %}
+<div class="container-fluid">
+  <h1 class="text-center">{{ sound_row.name }}</h1>
+  <div class="container">
+    {{ audio_player(sound_row.path) }}
+    <hr>
+    <a class="container btn btn-primary" href="/play/{{ sound_row.path }}">
+      <i class="glyphicon glyphicon-download"></i>
+    </a>
+  </div>
+</div>
+{% endblock %}
