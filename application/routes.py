@@ -1,6 +1,6 @@
 from flask import current_app as app
 from flask import render_template, request, redirect, url_for, flash, Markup, abort, send_from_directory
-from .forms import SearchForm, UploadSoundForm
+from .forms import UploadSoundForm
 from werkzeug.utils import secure_filename
 from os import path
 from pathlib import Path
@@ -10,10 +10,7 @@ from .models import db, User, Sound
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
 def index():
-    search_form = SearchForm()
-    if search_form.validate_on_submit():
-        return 'Submitted!'
-    return render_template('index.html', search_form=search_form, sounds=Sound.query.all())
+    return render_template('index.html', sounds=Sound.query.all())
 
 
 @app.route('/play/<path:filename>')
