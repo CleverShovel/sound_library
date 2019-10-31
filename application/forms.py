@@ -1,11 +1,38 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed, FileRequired
-from wtforms import TextField
-from wtforms.validators import DataRequired, Regexp, Length, Optional
-import re
+from wtforms import TextField, PasswordField, StringField
+from wtforms.validators import DataRequired, Regexp, Length, Optional, Email, EqualTo, ValidationError
+
+
+class SignupForm(FlaskForm):
+  """User Signup Form."""
+
+  name = StringField('Name',
+                     validators=[DataRequired(message=('Enter your name.'))])
+  email = StringField('Email',
+                      validators=[Email(
+                          message=('Please enter a valid email address.')),
+                          DataRequired(message=('Please enter a valid email address.'))])
+  password = PasswordField('Password',
+                           validators=[DataRequired(message='Please enter a password.'),
+                                       Length(min=6, message=(
+                                           'Please select a stronger password.')),
+                                       EqualTo('confirm', message='Passwords must match')])
+  confirm = PasswordField('Confirm Your Password')
+
+
+class LoginForm(FlaskForm):
+    """User Login Form."""
+
+    email = StringField('Email', validators=[DataRequired('Please enter a valid email address.'),
+                                             Email('Please enter a valid email address.')])
+    password = PasswordField('Password', validators=[
+                             DataRequired('Enter password')])
 
 
 class UploadSoundForm(FlaskForm):
+  """Upload sound form"""
+
   name = TextField('Enter sound name:', validators=[
       Optional(False),
       Regexp(r"^[а-яА-Яa-zA-Z\. ]+$",

@@ -7,21 +7,26 @@
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="{{url_for('index')}}">Sound Library</a>
+      <a class="navbar-brand" href="{{url_for('main_bp.index')}}">Sound Library</a>
     </div>
     <ul class="nav navbar-nav">
-      <li><a href="{{url_for('upload_sound')}}">Upload sound</a></li>
+      <li><a href="{{url_for('main_bp.upload_sound')}}">Upload sound</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-      <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      {% if current_user.is_authenticated %}
+      <li><a href="#"><span class="glyphicon glyphicon-user"></span>  {{ current_user.name }}</a></li>
+      <li><a href="{{ url_for('auth_bp.logout_page') }}"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
+      {% else %}
+      <li><a href="{{ url_for('auth_bp.signup_page') }}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+      <li><a href="{{ url_for('auth_bp.login_page') }}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      {% endif %}
     </ul>
     {% block navbar_add %}{% endblock %}
   </div>
 </nav>
 {% endblock %}
 
-{% block content %}
+{% block scripts %}
 <style>
   audio {
     box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.4);
@@ -29,5 +34,8 @@
     transform: scale(1.05);
   }
 </style>
+{% endblock %}
+
+{% block content %}
 {{ alerts() }}
 {% endblock %}
