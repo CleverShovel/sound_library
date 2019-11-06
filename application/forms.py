@@ -18,7 +18,7 @@ class SignupForm(FlaskForm):
                                        Length(min=6, message=(
                                            'Please select a stronger password.')),
                                        EqualTo('confirm', message='Passwords must match')])
-  confirm = PasswordField('Confirm Your Password')
+  confirm = PasswordField('Confirm Password')
 
 
 class LoginForm(FlaskForm):
