@@ -7,7 +7,8 @@
   <div class="container">
     {{ audio_player(sound_row.path) }}
     <hr>
-    <a class="container btn btn-primary" href="/play/{{ sound_row.path }}">
+    <a class="container btn btn-primary" 
+        href="{{ url_for('main_bp.download_sound', filename=sound_row.path) }}">
       <i class="glyphicon glyphicon-download"></i>
     </a>
   </div>

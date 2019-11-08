@@ -31,7 +31,7 @@ def login_page():
                     login_user(user)
                     next = request.args.get('next')
                     return redirect(next or url_for('main_bp.index'))
-        flash('Invalid username/password combination')
+        flash('Invalid username/password combination', 'warning')
         return redirect(url_for('auth_bp.login_page'))
     # GET: Serve Log-in page
     return render_template('login.html',
@@ -60,7 +60,7 @@ def signup_page():
                 db.session.commit()
                 login_user(user)
                 return redirect(url_for('main_bp.index'))
-            flash('A user already exists with that email address.')
+            flash('A user already exists with that email address.', 'warning')
             return redirect(url_for('auth_bp.signup_page'))
     # GET: Serve Sign-up page
     return render_template('/signup.html',

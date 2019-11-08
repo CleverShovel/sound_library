@@ -14,7 +14,7 @@
     </ul>
     <ul class="nav navbar-nav navbar-right">
       {% if current_user.is_authenticated %}
-      <li><a href="#"><span class="glyphicon glyphicon-user"></span>  {{ current_user.name }}</a></li>
+      <li><a href="{{ url_for('main_bp.user_page', id=current_user.get_id()) }}"><span class="glyphicon glyphicon-user"></span>  {{ current_user.name }}</a></li>
       <li><a href="{{ url_for('auth_bp.logout_page') }}"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
       {% else %}
       <li><a href="{{ url_for('auth_bp.signup_page') }}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
