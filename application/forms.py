@@ -30,16 +30,28 @@ class LoginForm(FlaskForm):
                              DataRequired('Enter password')])
 
 
+class PasswordForm(FlaskForm):
+    """Change password form."""
+
+    new_password = PasswordField('New Password',
+                                 validators=[DataRequired(message='Please enter a password.'),
+                                             Length(min=6, message=(
+                                                 'Please select a stronger password.')),
+                                             EqualTo('confirm', message='Passwords must match')])
+    confirm = PasswordField('Confirm Password')
+
+
 class UploadSoundForm(FlaskForm):
-  """Upload sound form"""
+  """Upload sound form."""
 
   name = TextField('Enter sound name:', validators=[
       Optional(False),
-      Regexp(r"^[а-яА-Яa-zA-Z\. ]+$",
-             message="Incorrect name: only russian or english letters, dot and space are accepted!"),
+      Regexp(r"^[а-яА-Яa-zA-Z\. 0-9]+$",
+             message="Incorrect name: only russian or english letters, numbers, dot and space are accepted!"),
       Length(min=1, max=255, message="Maximum length 255 characters!")])
   sound_file = FileField('Choose file:', validators=[
       FileRequired('Empty file!'),
       #.wav, .mp3, .aac, .ogg, .oga, and .flac
-      FileAllowed(['wav', 'mp3', 'aac', 'ogg', 'oga', 'flac'], 'Sounds only!')
+      FileAllowed(['wav', 'mp3', 'aac', 'ogg',
+                   'oga', 'flac'], 'Sounds only!')
   ])

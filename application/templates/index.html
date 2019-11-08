@@ -12,6 +12,7 @@
 
 {% block scripts %}
 {{ super() }}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
   $(document).ready(function () {
     $("#sound_input").on("keyup", function () {
@@ -30,7 +31,7 @@
   <ul class="list-group" id="sound_list">
     {% for item in sounds %}
     <li class="list-group-item text-center">
-      <h3 class="name"><a href="/sound/{{ item.id }}">{{ item.name }}</a></h3>
+      <h3 class="name"><a href="{{ url_for('main_bp.sound', id=item.id) }}">{{ item.name }}</a></h3>
       {{ audio_player(item.path) }}
     </li>
     {% endfor %}

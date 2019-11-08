@@ -1,0 +1,41 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+{{ super() }}
+<div class="container-fluid">
+  <h1 class="text-center">Hello, {{ user_row.name }}</h1>
+  <hr>
+  {% if current_user.get_id()|string == user_row.id|string %}
+  <div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+      <form class="form-horizontal" method="post" role="form">
+        {{ form.csrf_token() }}
+
+        {% for field in form %}
+        {% if field!=form.csrf_token %}
+        <div class="form-group">
+          {{ field.label(class_='control-label col-sm-4') }}
+          <div class='col-sm-6'>
+            {{ field(class_='form-control') }}
+            {% if field.errors %}
+            <ul style="color:rgb(236, 68, 68)">
+              {% for error in field.errors %}
+              <li>{{ error }}</li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+          </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+        <div class="form-group">
+          <div class="col-sm-6 col-sm-offset-4">
+            <button type="submit" class="btn btn-primary">Change Password</button>
+          </div>
+        </div>
+
+      </form>
+    </div>
+    {% endif %}
+  </div>
+  {% endblock %}
