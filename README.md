@@ -6,11 +6,19 @@ Sound Library use [Flask](https://pypi.org/project/Flask/) itself and Flask modu
 
 ## Usage
 1. Clone repo
-2. Launch script start.sh
+2. Change directory
+```
+cd sound_library
+```
+3. Activate python environment
+```
+source env/bin/activate
+```
+4. Launch script start.sh
 ```
 $ ./start.sh
 ```
-3. In browser in search:
+5. Input in search bar of your browser:
 ```
 localhost:5000
 ```
